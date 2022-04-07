@@ -1,0 +1,9 @@
+const ayodhya = "https://lh3.google.com/u/0/d/1tOZ7c7kgC8PSWhEPxorUZPw0OuOWDdQ1=w200-h190-p-k-nu-iv1";
+const vrindavan = "https://lh3.googleusercontent.com/8V1JxYaiKDr14_6-w-8safyuhCouKJvltjm5AwRaqQe4Yh794pPm4WrsnLKUB-Rm8nhvThS9UOfv-A_0QmGLHJvs-AZ3f7OjoZ8eKynIe5u8v9Ag4yPqc0A10Bp5QAHJIU5-REHmPLWUIIE2A19wcr7OWulmmO0Qc2BlRgbjxt4igdgjYnm48qTX76UA8G-9UycGVXfMekXALfcp6vxKuHCHaHUVfmZvEFCnYz90Wvh9XTwuLm-ui3WtEuedwYE9kla34sbQ6aN4gmVl4A8-n8TTcNKtkzSQo5fFUwcJQsO36OlSXzpzWb15Fk4hT7JCo-JNnQJdek83kaRtWLDIoGpL8rhsl2K7fZ_i6rr9QbXWMQJWo7lSqu5W6xdwyiXWMcDNHu1UvFqhR0Cg9yNe2LywowOZW3GY2ASGgpM36ffETLrnLO6glZnbEn8_TAOAgNrz2LI9qy8ad1sPZtP3t5YudeYzfpB5g6c4IFkYGwBE5hJpzHNgv4z2LQwExzKbthJ6ROFrcrf0XlyKVBbyKTteWg-ytj-Ann0JpR4MTpLFSl7L4ewz9tXXQo_oDWC4sgnFPs8uHXF0srJrtxSwN4LJrzHGYbDmU8HQr692jlpwYDl2tjHhSi74autcmv1Fx3VcVtKbk_IBI6aGdE8gQxSxbXnYLWOWlMJ2YKi5DhAPOGszvvyjvw5DAt9RVTN8WpidAiRC_AJULRacQsrxQbI=w1186-h667-no?authuser=0";
+
+const jaipur = "https://lh3.google.com/u/0/d/16RK5n7kRL6VUN404cPQ6ceL396Cx9TXy=w200-h190-p-k-nu-iv1";
+export {
+    ayodhya,
+    vrindavan,
+    jaipur,
+}

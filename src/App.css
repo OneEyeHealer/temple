@@ -1,0 +1,24 @@
+.App {
+  text-align: center;
+}
+@media screen and (max-width: 768px) {
+  .new-offering-position {
+    top: 0;
+    left: -24px;
+  }
+}
+.text-transform-40vh {
+  transform: translate(0vh, 40vh);
+}
+
+.ques {
+  font-size: 24px;
+  font-weight: 500;
+}
+.head-t {
+  font-size: 22px;
+  font-weight: 500;
+}
+.ans {
+  font-size: 16px;
+}

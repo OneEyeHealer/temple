@@ -1,0 +1,110 @@
+/*----------HOme page - header section---------------------*/
+header {
+  min-height: 80vh;
+  width: 100%;
+  background-image: linear-gradient(
+      to right top,
+      rgba(255, 161, 127, 0.342),
+      rgba(0, 34, 62, 0.432)
+    ),
+    url(https://scontent-del1-2.xx.fbcdn.net/v/t31.0-8/s960x960/14615675_1129717797109786_7397748157824969957_o.jpg?_nc_cat=108&ccb=3&_nc_sid=e3f864&_nc_ohc=KkPibDPx_0AAX_2uNSW&_nc_ht=scontent-del1-2.xx&tp=7&oh=d143babc21405bf9bf3b92a27e595ca7&oe=60633C80);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+header .iskcon-logo {
+  margin: 40px auto 10px auto;
+  padding: 10px;
+  width: 450px;
+  height: auto;
+}
+@media screen and (max-width: 768px) {
+  header .iskcon-logo {
+    margin: 5em auto 1em auto;
+    padding: 10px;
+    width: 12em;
+    height: auto;
+  }
+}
+
+.event-height {
+  min-height: 300px !important;
+  text-align: justify;
+}
+.event-label {
+  background-color: var(--hover-bg) !important;
+  color: var(--text-white);
+}
+
+/*----------About page---------------------*/
+.about-para {
+  text-align: justify;
+  line-height: 1.5em;
+}
+.about-para:first-letter {
+  color: red;
+  font-size: 36px;
+}
+
+/*horizontal lines*/
+.horizontal-line {
+  position: relative;
+  display: block;
+  text-align: center;
+  align-content: center;
+  width: 100%;
+  white-space: nowrap;
+  font-size: 32px;
+  margin: 20px auto 40px auto;
+}
+
+.horizontal-line::after,
+.horizontal-line::before {
+  content: "";
+  height: 2px;
+  width: 30%;
+  background-color: rgb(48, 60, 85);
+  position: relative;
+  top: 0;
+  margin: 10px;
+  display: inline-block;
+}
+@media screen and (max-width: 768px) {
+  .horizontal-line {
+    font-size: 22px;
+    margin: 15px auto 25px auto;
+  }
+  .horizontal-line::after,
+  .horizontal-line::before {
+    width: 20%;
+    margin: 6px;
+  }
+}
+@media screen and (max-width: 448px) {
+  .horizontal-line {
+    font-size: 18px;
+    margin: 20px auto;
+  }
+  .horizontal-line::after,
+  .horizontal-line::before {
+    width: 10%;
+    margin: 2px;
+  }
+}
+.hl-left::after {
+  background-image: linear-gradient(90deg, #1a2980, #26d0ce, #8cc9f0);
+}
+
+.hl-right::before {
+  background-image: linear-gradient(270deg, #1a2980, #26d0ce, #8cc9f0);
+}
+
+/*----------offering page---------------------*/
+/*.viewOffering{*/
+/*    display: none;*/
+/*}*/
+/*.viewOffering.active{*/
+/*    display: block;*/
+/*}*/

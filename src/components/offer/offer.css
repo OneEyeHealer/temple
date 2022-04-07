@@ -1,0 +1,23 @@
+.remove-padding{
+    padding: 0 !important;
+}
+
+.hare-krishna{
+    min-height: 100vh;
+    width: 100%;
+    background-image: url(https://www.theindiansun.com.au/wp-content/uploads/2020/10/krishna_radha.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+}
+.hare-krishna .App{
+    color: #fff;
+    /*margin: 40px auto 10px auto;*/
+    /*padding: 20% 0;*/
+    height: auto;
+}
+.hare-krishna .App h1{
+    font-size: 4em;
+}

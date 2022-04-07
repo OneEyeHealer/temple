@@ -1,0 +1,15 @@
+.pass-data {
+  width: 50% !important;
+}
+
+@media (min-width: 764px) and (max-width: 1400px) {
+  .pass-data {
+    width: 50% !important;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 568px) {
+  .pass-data {
+    width: 80% !important;
+  }
+}

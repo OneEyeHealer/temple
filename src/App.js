@@ -1,126 +1,64 @@
-import React, { useState } from "react";
-import QRCode from "qrcode";
+import React, {Fragment, useEffect, useState} from "react";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {ToastContainer} from "react-toastify";
+import auth from './services/authService';
 
-const App = (props) => {
-  const [src, setSrc] = useState("");
-  const [data, setData] = useState({
-    name: "",
-    phone: "",
-    city: "",
-    education: "",
-    occupation: "",
-    collage: "",
-    age: "",
-  });
-  const { name, phone, city, education, occupation, collage, age } = data;
-  // useEffect(async () => {
-  // }, []);
+import NavBar from "./components/nav/navBar";
+import Footer from "./components/footer/footer";
+import Home from "./components/pages/Home";
+import About from "./components/pages/About";
+import Activity from "./components/pages/Activity";
+import Offering from "./components/pages/Offering";
+import Contact from "./components/pages/Contact";
+import LoginForm from "./components/pages/LoginForm";
+import NotFound from "./components/pages/NotFound";
+import OfferingForm from "./components/offer/OfferingForm";
+import Logout from "./components/Logout";
+import RegisterForm from "./components/pages/RegisterForm";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    var imgSrc = await QRCode.toDataURL(
-      `Name: ${name}; Mobile: ${phone}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${collage}; Age: ${age}; `
-    );
-    setSrc(imgSrc);
-  };
-  const handleName = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
+import 'react-toastify/dist/ReactToastify.css';
 
+const App = () => {
+    const [homeClick, setHomeClick] = useState(false);
+    const[user, setUser] = useState({});
+    useEffect(()=>{
+        const user = auth.getActiveUser();
+        setUser(user);
+    },[]);
   return (
-    <>
-      <div className="container my-5 w-50">
-        <div className="row">
-          <div className="col">
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Name:</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="name"
-                  value={name}
-                  onChange={handleName}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="phone">Phone:</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="phone"
-                  value={phone}
-                  onChange={handleName}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="city">City:</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="city"
-                  value={city}
-                  onChange={handleName}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="education">Education: </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="education"
-                  value={education}
-                  onChange={handleName}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="occupation">Current Occupation:</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="occupation"
-                  value={occupation}
-                  onChange={handleName}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="collage">Name of Company/Institute:</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="collage"
-                  value={collage}
-                  onChange={handleName}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="age">Age:</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="age"
-                  value={age}
-                  onChange={handleName}
-                />
-              </div>
-              <div class="text-center my-3">
-                <input
-                  type="submit"
-                  value="Submit"
-                  className="btn btn-primary"
-                />
-              </div>
-            </form>
-          </div>
-          <div className="col text-center">
-            <img src={src} alt="" />
-          </div>
+    <Router>
+        <div className="">
+            <ToastContainer />
+            <NavBar
+                homeClick={homeClick}
+                setHomeClick={setHomeClick}
+                user={user}
+            />
         </div>
-      </div>
-      {/* <Testimonial Title={"Testimonial"} data={DUMMY_DATA} /> */}
-      {/* <Game /> */}
-    </>
+        <div className="main">
+            <Switch>
+                <Route path="/offerings/:id" component={OfferingForm} />
+                <Route path="/home" render={(props)=> <Home {...props}/>} />
+                <Route path="/about" component={About} />
+                <Route path="/activity" component={Activity} />
+                <Route path="/offerings" render={(props) => <Offering {...props} user={user}/>}/>
+                <Route path="/contact" component={Contact} />
+                <Route path="/login" render={(props) => <LoginForm {...props}/>} />
+                <Route path="/logout" component={Logout} />
+                <Route path="/not-found" component={NotFound} />
+                <Route path="/register" render={(props) => <RegisterForm {...props}/>} />
+                <Redirect from="/" exact to="/home" />
+                <Redirect to="/not-found" />
+            </Switch>
+        </div>
+        <div className="footer">
+            <Footer/>
+        </div>
+    </Router>
   );
-};
+}
 
 export default App;
