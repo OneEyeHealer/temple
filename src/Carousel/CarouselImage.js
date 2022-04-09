@@ -3,48 +3,38 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import "./CarouselImage.css";
 import { Carousel } from "react-responsive-carousel";
 
-import appLaunch from "../img/iyfrohini_app_launch.JPG";
-import bookDistribution from "../img/iyfrohini_book_distribution.JPG";
-import drama from "../img/iyfrohini_drama.jpg";
-import people01 from "../img/iyfrohini_people_01.JPG";
-import people02 from "../img/iyfrohini_people_02.jpg";
-import team01 from "../img/iyfrohini_team_01.JPG";
-import team02 from "../img/iyfrohini_team_01.JPG";
-import shoot01 from "../img/iyfrohini_photoshoot_01.JPG";
-import prasadam from "../img/iyfrohini_prasadam.JPG";
-
 const links = [
-  { url: appLaunch, label: "App Launch" },
+  { url: "/img/iyfrohini_app_launch.JPG", label: "App Launch" },
   {
-    url: bookDistribution,
+    url: "/img/iyfrohini_book_distribution.JPG",
     label: "Book Distribution",
   },
   {
-    url: drama,
+    url: "/img/iyfrohini_drama.JPG",
     label: "Book Distribution",
   },
   {
-    url: people01,
+    url: "/img/iyfrohini_people_01.JPG",
     label: "Book Distribution",
   },
   {
-    url: people02,
+    url: "/img/iyfrohini_team_01.JPG",
     label: "Book Distribution",
   },
   {
-    url: team01,
+    url: "/img/iyfrohini_team_02.JPG",
     label: "Book Distribution",
   },
   {
-    url: team02,
+    url: "/img/iyfrohini_photoshoot_01.JPG",
     label: "Book Distribution",
   },
   {
-    url: shoot01,
+    url: "/img/iyfrohini_photoshoot_01.JPG",
     label: "Book Distribution",
   },
   {
-    url: prasadam,
+    url: "/img/iyfrohini_prasadam.JPG",
     label: "Book Distribution",
   },
 ];
@@ -55,7 +45,7 @@ const CarouselImage = () => {
       {links.map((link, i) => (
         <div key={i} className="carouselImage-div">
           <img src={link.url} />
-          {/* <p className="legend">{link.label}</p> */}
+          <p className="legend">{link.label}</p>
         </div>
       ))}
     </Carousel>

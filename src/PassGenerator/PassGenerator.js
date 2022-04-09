@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import QRCode from "qrcode";
 import { saveAs } from "file-saver";
+import { toast } from "react-toastify";
 import "./PassGenerator.css";
 
 const PassGenerator = () => {
@@ -19,19 +20,48 @@ const PassGenerator = () => {
   const saveFile = () => {
     saveAs(src, `${name}.png`);
   };
+  const handlePass = (e) => {
+    const { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let dataUrl = `Name: ${name}; Mobile: ${phone}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${collage}; Age: ${age}; `;
-    var imgSrc = await QRCode.toDataURL(dataUrl);
-    setSrc(imgSrc);
-    setform(false);
-  };
-  const handleName = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
+    try {
+      const response = await fetch(
+        "https://v1.nocodeapi.com/iyfrohini/google_sheets/YDLzNPLNCIaJTxkR?tabId=Sheet1",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify([
+            [
+              name,
+              phone,
+              age,
+              city,
+              education,
+              occupation,
+              collage,
+              new Date().toLocaleString(),
+            ],
+          ]),
+        }
+      );
+      await response.json();
+      let dataUrl = `Name: ${name}; Mobile: ${phone}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${collage}; Age: ${age}; `;
+
+      var imgSrc = await QRCode.toDataURL(dataUrl);
+      setSrc(imgSrc);
+      setform(false);
+      notify(`Thank you for registering for Prerna Youth Fest in ISKCON Rohini. We have mailed your pass to your Email Id or you can Download your Pass from here also. 
+    
+    See you on 8th May,2022`);
+    } catch (error) {}
   };
 
   const newPass = () => {
@@ -40,13 +70,15 @@ const PassGenerator = () => {
       ...data,
       name: "",
       phone: "",
+      age: "",
       city: "",
       education: "",
       occupation: "",
       collage: "",
-      age: "",
     });
   };
+  const notify = (message) => toast.success(`${message}`);
+
   return (
     <>
       {!form && (
@@ -68,7 +100,8 @@ const PassGenerator = () => {
                   type="text"
                   name="name"
                   value={name}
-                  onChange={handleName}
+                  onChange={handlePass}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -78,7 +111,8 @@ const PassGenerator = () => {
                   type="text"
                   name="phone"
                   value={phone}
-                  onChange={handleName}
+                  onChange={handlePass}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -88,7 +122,10 @@ const PassGenerator = () => {
                   type="number"
                   name="age"
                   value={age}
-                  onChange={handleName}
+                  onChange={handlePass}
+                  min={16}
+                  max={30}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -98,7 +135,8 @@ const PassGenerator = () => {
                   type="text"
                   name="city"
                   value={city}
-                  onChange={handleName}
+                  onChange={handlePass}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -108,7 +146,8 @@ const PassGenerator = () => {
                   type="text"
                   name="education"
                   value={education}
-                  onChange={handleName}
+                  onChange={handlePass}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -118,7 +157,8 @@ const PassGenerator = () => {
                   type="text"
                   name="occupation"
                   value={occupation}
-                  onChange={handleName}
+                  onChange={handlePass}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -128,7 +168,8 @@ const PassGenerator = () => {
                   type="text"
                   name="collage"
                   value={collage}
-                  onChange={handleName}
+                  onChange={handlePass}
+                  required
                 />
               </div>
 
