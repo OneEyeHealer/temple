@@ -1,7 +1,5 @@
-import React, { Fragment } from "react";
-import logo from "../../img/logo.png";
+import React, { Fragment, useRef } from "react";
 import PassGenerator from "../../PassGenerator/PassGenerator";
-import NewOffering from "../common/newOffering";
 import poster from "../../img/Prerna_poster_1.jpg";
 import CarouselImage from "../../Carousel/CarouselImage";
 

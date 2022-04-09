@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import QRCode from "qrcode";
 import { saveAs } from "file-saver";
 import { toast } from "react-toastify";
+import jsPDF from "jspdf";
 import "./PassGenerator.css";
+import { NameFormat } from "./../utils/Helper";
+import banner from "../img/Prerna_poster_1.jpg";
 
 const PassGenerator = () => {
   const [form, setform] = useState(true);
@@ -10,15 +13,70 @@ const PassGenerator = () => {
   const [data, setData] = useState({
     name: "",
     phone: "",
+    email: "",
     city: "",
     education: "",
     occupation: "",
     collage: "",
     age: "",
   });
-  const { name, phone, city, education, occupation, collage, age } = data;
-  const saveFile = () => {
-    saveAs(src, `${name}.png`);
+  const {
+    name,
+    phone,
+    email,
+    city,
+    education,
+    occupation,
+    collage: college,
+    age,
+  } = data;
+  var doc = new jsPDF("portrait", "px", "a4", false);
+  let msg = `
+
+  Congratulations !
+
+  ${NameFormat(name)}, ${phone} 
+
+  You are successfully registered !
+
+
+  Time to rewind the past and experience the future adventures at
+  once !
+
+
+
+  See you at Prerna Youth Fest On May 8, 2022 !
+
+
+  Also Make sure to carry your college id card. It will be checked at
+  entry gate.
+  `;
+  const saveEntryPass = () => {
+    // saveAs(src, `${name}.png`);
+    doc.setFontSize(20);
+    doc.setFont("arial", "bold");
+    doc.text("Welcome to Prerna Youth Fest", 30, 45);
+    doc.setFontSize(13);
+    doc.setFont("arial", "Normal");
+    doc.text(msg, 30, 55);
+    doc.addImage(banner, "JPEG", 300, 35, 130, 180);
+    doc.setFontSize(20);
+    doc.setFont("arial", "bold");
+    doc.text("Prerna Youth Fest Entry Pass", 130, 280);
+    doc.addImage(src, "JPEG", 130, 285, 180, 180);
+    doc.setFont("arial", "bold");
+    doc.setFontSize(15);
+    doc.text(150, 475, "Name: ");
+    doc.text(150, 495, "Phone: ");
+    doc.text(150, 515, "Email: ");
+    doc.setFont("arial", "Normal");
+    doc.text(200, 475, `${name}`);
+    doc.text(200, 495, `${phone}`);
+    doc.text(200, 515, `${email}`);
+    doc.setFontSize(8);
+    doc.text(270, 610, `Date: ${new Date()}`);
+
+    doc.save(`${name.split(" ").join("_")}_${new Date().toLocaleString()}`);
   };
   const handlePass = (e) => {
     const { name, value } = e.target;
@@ -42,18 +100,19 @@ const PassGenerator = () => {
             [
               name,
               phone,
+              email,
               age,
               city,
               education,
               occupation,
-              collage,
+              college,
               new Date().toLocaleString(),
             ],
           ]),
         }
       );
       await response.json();
-      let dataUrl = `Name: ${name}; Mobile: ${phone}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${collage}; Age: ${age}; `;
+      let dataUrl = `Name: ${name}; Mobile: ${phone}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${college}; Age: ${age}; `;
 
       var imgSrc = await QRCode.toDataURL(dataUrl);
       setSrc(imgSrc);
@@ -108,10 +167,23 @@ const PassGenerator = () => {
                 <label htmlFor="phone">Phone:</label>
                 <input
                   className="form-control"
-                  type="text"
+                  type="number"
                   name="phone"
                   value={phone}
                   onChange={handlePass}
+                  minLength={10}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phone">Email:</label>
+                <input
+                  className="form-control"
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={handlePass}
+                  minLength={10}
                   required
                 />
               </div>
@@ -167,7 +239,7 @@ const PassGenerator = () => {
                   className="form-control"
                   type="text"
                   name="collage"
-                  value={collage}
+                  value={college}
                   onChange={handlePass}
                   required
                 />
@@ -209,11 +281,11 @@ const PassGenerator = () => {
                 <b>Current Occupation:</b> {occupation}
               </p>
               <p>
-                <b>Name of Company/Institute:</b> {collage}
+                <b>Name of Company/Institute:</b> {college}
               </p>
             </div>
             <div className="container text-center">
-              <button className="btn btn-primary" onClick={saveFile}>
+              <button className="btn btn-primary" onClick={saveEntryPass}>
                 Download
               </button>
             </div>
