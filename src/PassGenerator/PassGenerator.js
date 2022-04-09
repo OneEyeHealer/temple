@@ -40,16 +40,10 @@ const PassGenerator = () => {
   You are successfully registered !
 
 
-  Time to rewind the past and experience the future adventures at
-  once !
-
-
 
   See you at Prerna Youth Fest On May 8, 2022 !
 
 
-  Also Make sure to carry your college id card. It will be checked at
-  entry gate.
   `;
   const saveEntryPass = () => {
     // saveAs(src, `${name}.png`);
