@@ -179,6 +179,7 @@ const PassGenerator = () => {
                   name="name"
                   value={name}
                   onChange={handlePass}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -209,6 +210,7 @@ const PassGenerator = () => {
                   value={email}
                   onChange={handlePass}
                   minLength={10}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -223,6 +225,7 @@ const PassGenerator = () => {
                   onChange={handlePass}
                   min={16}
                   max={30}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -235,6 +238,7 @@ const PassGenerator = () => {
                   name="city"
                   value={city}
                   onChange={handlePass}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -247,6 +251,7 @@ const PassGenerator = () => {
                   name="education"
                   value={education}
                   onChange={handlePass}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -259,6 +264,7 @@ const PassGenerator = () => {
                   name="occupation"
                   value={occupation}
                   onChange={handlePass}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -271,6 +277,7 @@ const PassGenerator = () => {
                   name="collage"
                   value={college}
                   onChange={handlePass}
+                  required
                 />
               </div>
 
