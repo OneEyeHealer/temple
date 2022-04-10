@@ -45,7 +45,7 @@ const CarouselImage = () => {
       {links.map((link, i) => (
         <div key={i} className="carouselImage-div">
           <img src={link.url} />
-          <p className="legend">{link.label}</p>
+          {/* <p className="legend">{link.label}</p> */}
         </div>
       ))}
     </Carousel>
