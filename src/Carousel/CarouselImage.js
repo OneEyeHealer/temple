@@ -30,7 +30,7 @@ const links = [
     label: "Book Distribution",
   },
   {
-    url: "/img/iyfrohini_photoshoot_01.JPG",
+    url: "/img/iyfrohini_people_02.jpg",
     label: "Book Distribution",
   },
   {

@@ -8,6 +8,7 @@ import { NameFormat } from "./../utils/Helper";
 import banner from "../img/Prerna_poster_1.jpg";
 
 const PassGenerator = () => {
+  const [formErrors, setFormErrors] = useState({});
   const [form, setform] = useState(true);
   const [src, setSrc] = useState("");
   const [data, setData] = useState({
@@ -78,6 +79,7 @@ const PassGenerator = () => {
       ...data,
       [name]: value,
     });
+    setFormErrors(null);
   };
 
   const handleSubmit = async (e) => {
@@ -109,14 +111,33 @@ const PassGenerator = () => {
       let dataUrl = `Name: ${name}; Mobile: ${phone}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${college}; Age: ${age}; `;
 
       var imgSrc = await QRCode.toDataURL(dataUrl);
-      setSrc(imgSrc);
-      setform(false);
-      notify(`Thank you for registering for Prerna Youth Fest in ISKCON Rohini. We have mailed your pass to your Email Id or you can Download your Pass from here also. 
-    
-    See you on 8th May,2022`);
+      let error = formValidation();
+      if (error) {
+        setFormErrors(error);
+        setSrc(imgSrc);
+        setform(false);
+      }
+      notify(
+        `Thank you for registering for Prerna Youth Fest in ISKCON Rohini. We have mailed your pass to your Email Id or you can Download your Pass from here also.
+
+    See you on 8th May,2022`,
+        true
+      );
     } catch (error) {}
   };
 
+  const formValidation = () => {
+    let error = false;
+    if (phone.length < 10) {
+      setFormErrors({
+        isInValid: true,
+        message: "Your Phone number is Invalid",
+      });
+    } else {
+      setFormErrors({ isInValid: false, message: "" });
+    }
+    return error;
+  };
   const newPass = () => {
     setform(true);
     setData({
@@ -130,7 +151,9 @@ const PassGenerator = () => {
       collage: "",
     });
   };
-  const notify = (message) => toast.success(`${message}`);
+  const notify = (message, type) => {
+    type ? toast.success(`${message}`) : toast.error(`${message}`);
+  };
 
   return (
     <>
@@ -147,18 +170,21 @@ const PassGenerator = () => {
             <h1 className="text-center">Entry Pass Form</h1>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="name">
+                  Name:<sup className="text-danger">*</sup>
+                </label>
                 <input
                   className="form-control"
                   type="text"
                   name="name"
                   value={name}
                   onChange={handlePass}
-                  required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="phone">Phone:</label>
+                <label htmlFor="phone">
+                  Phone:<sup className="text-danger">*</sup>
+                </label>
                 <input
                   className="form-control"
                   type="number"
@@ -168,9 +194,14 @@ const PassGenerator = () => {
                   minLength={10}
                   required
                 />
+                {formErrors && formErrors.isInValid
+                  ? notify(`${formErrors.message}`, false)
+                  : null}
               </div>
               <div className="form-group">
-                <label htmlFor="phone">Email:</label>
+                <label htmlFor="phone">
+                  Email:<sup className="text-danger">*</sup>
+                </label>
                 <input
                   className="form-control"
                   type="email"
@@ -178,11 +209,12 @@ const PassGenerator = () => {
                   value={email}
                   onChange={handlePass}
                   minLength={10}
-                  required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="age">Age:</label>
+                <label htmlFor="age">
+                  Age:<sup className="text-danger">*</sup>
+                </label>
                 <input
                   className="form-control"
                   type="number"
@@ -191,51 +223,54 @@ const PassGenerator = () => {
                   onChange={handlePass}
                   min={16}
                   max={30}
-                  required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="city">City:</label>
+                <label htmlFor="city">
+                  City:<sup className="text-danger">*</sup>
+                </label>
                 <input
                   className="form-control"
                   type="text"
                   name="city"
                   value={city}
                   onChange={handlePass}
-                  required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="education">Education: </label>
+                <label htmlFor="education">
+                  Education: <sup className="text-danger">*</sup>
+                </label>
                 <input
                   className="form-control"
                   type="text"
                   name="education"
                   value={education}
                   onChange={handlePass}
-                  required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="occupation">Current Occupation:</label>
+                <label htmlFor="occupation">
+                  Current Occupation:<sup className="text-danger">*</sup>
+                </label>
                 <input
                   className="form-control"
                   type="text"
                   name="occupation"
                   value={occupation}
                   onChange={handlePass}
-                  required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="collage">Name of Company/Institute:</label>
+                <label htmlFor="collage">
+                  Name of Company/Institute:<sup className="text-danger">*</sup>
+                </label>
                 <input
                   className="form-control"
                   type="text"
                   name="collage"
                   value={college}
                   onChange={handlePass}
-                  required
                 />
               </div>
 
