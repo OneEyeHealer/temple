@@ -8,6 +8,7 @@ import { NameFormat } from "./../utils/Helper";
 import banner from "../img/Prerna_poster_1.jpg";
 
 const PassGenerator = () => {
+  var isValid = false;
   const [formErrors, setFormErrors] = useState({});
   const [form, setform] = useState(true);
   const [src, setSrc] = useState("");
@@ -85,58 +86,59 @@ const PassGenerator = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "https://v1.nocodeapi.com/iyfrohini/google_sheets/YDLzNPLNCIaJTxkR?tabId=Sheet1",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify([
-            [
-              name,
-              phone,
-              email,
-              age,
-              city,
-              education,
-              occupation,
-              college,
-              new Date().toLocaleString(),
-            ],
-          ]),
-        }
-      );
-      await response.json();
-      let dataUrl = `Name: ${name}; Mobile: ${phone}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${college}; Age: ${age}; `;
+      isValid = formValidation();
+      if (isValid) {
+        const response = await fetch(
+          "https://v1.nocodeapi.com/iyfrohini/google_sheets/YDLzNPLNCIaJTxkR?tabId=Sheet1",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify([
+              [
+                name,
+                phone,
+                email,
+                age,
+                city,
+                education,
+                occupation,
+                college,
+                new Date().toLocaleString(),
+              ],
+            ]),
+          }
+        );
+        await response.json();
+        let dataUrl = `Name: ${name}; Mobile: ${phone}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${college}; Age: ${age}; `;
 
-      var imgSrc = await QRCode.toDataURL(dataUrl);
-      let error = formValidation();
-      if (error) {
-        setFormErrors(error);
+        var imgSrc = await QRCode.toDataURL(dataUrl);
+        setFormErrors({});
         setSrc(imgSrc);
         setform(false);
+        notify(
+          `Thank you for registering for Prerna Youth Fest in ISKCON Rohini. We have mailed your pass to your Email Id or you can Download your Pass from here also.
+          
+          See you on 8th May,2022`,
+          true
+        );
       }
-      notify(
-        `Thank you for registering for Prerna Youth Fest in ISKCON Rohini. We have mailed your pass to your Email Id or you can Download your Pass from here also.
-
-    See you on 8th May,2022`,
-        true
-      );
     } catch (error) {}
   };
 
   const formValidation = () => {
-    let error = false;
     if (phone.length < 10) {
       setFormErrors({
         isInValid: true,
         message: "Your Phone number is Invalid",
       });
+      isValid = false;
     } else {
       setFormErrors({ isInValid: false, message: "" });
+      isValid = true;
     }
-    return error;
+    return isValid;
   };
   const newPass = () => {
     setform(true);
@@ -144,6 +146,7 @@ const PassGenerator = () => {
       ...data,
       name: "",
       phone: "",
+      email: "",
       age: "",
       city: "",
       education: "",
