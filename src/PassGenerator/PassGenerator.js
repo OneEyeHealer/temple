@@ -193,6 +193,7 @@ const PassGenerator = (props) => {
               {props.title[0].toUpperCase() + props.title.slice(1)} Entry Pass
               Form
             </h2>
+            <div className="under-line"></div>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">
@@ -403,6 +404,7 @@ const PassGenerator = (props) => {
         {src && !form && (
           <div className="col-12">
             <h1 className="text-center">Entry Pass Generated</h1>
+            <div className="under-line"></div>
             <div className="container text-center">
               <img src={src} alt="" width="150px" height="150px" />
             </div>
