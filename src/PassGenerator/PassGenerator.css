@@ -1,6 +1,27 @@
 .pass-data {
   width: 50% !important;
 }
+.choose-form {
+  margin: 50% auto;
+  border: 4px solid purple;
+  padding: 15px 0px;
+  border-radius: 15px;
+}
+label {
+  font-weight: 700 !important;
+}
+
+@media (min-width: 991px) and (max-width: 1400px) {
+  .choose-form {
+    margin: 50% auto;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+  .choose-form {
+    padding-bottom: 2em;
+  }
+}
 
 @media (min-width: 764px) and (max-width: 1400px) {
   .pass-data {

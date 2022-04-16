@@ -7,7 +7,7 @@ import "./PassGenerator.css";
 import { NameFormat } from "./../utils/Helper";
 import banner from "../img/Prerna_poster_1.jpg";
 
-const PassGenerator = () => {
+const PassGenerator = (props) => {
   var isValid = false;
   const [formErrors, setFormErrors] = useState({});
   const [form, setform] = useState(true);
@@ -16,21 +16,29 @@ const PassGenerator = () => {
     name: "",
     phone: "",
     email: "",
+    gender: "",
     city: "",
     education: "",
     occupation: "",
-    collage: "",
+    college: "",
     age: "",
+    platform: "",
+    branch: "",
+    year: "",
   });
   const {
     name,
     phone,
     email,
+    gender,
     city,
     education,
     occupation,
-    collage: college,
+    college,
     age,
+    platform,
+    branch,
+    year,
   } = data;
   var doc = new jsPDF("portrait", "px", "a4", false);
   let msg = `
@@ -89,7 +97,7 @@ const PassGenerator = () => {
       isValid = formValidation();
       if (isValid) {
         const response = await fetch(
-          "https://v1.nocodeapi.com/iyfrohini/google_sheets/YDLzNPLNCIaJTxkR?tabId=Sheet1",
+          `https://v1.nocodeapi.com/iyfrohini/google_sheets/YDLzNPLNCIaJTxkR?tabId=${props.title}`,
           {
             method: "POST",
             headers: {
@@ -101,17 +109,21 @@ const PassGenerator = () => {
                 phone,
                 email,
                 age,
+                gender,
                 city,
                 education,
                 occupation,
                 college,
+                platform,
+                branch,
+                year,
                 new Date().toLocaleString(),
               ],
             ]),
           }
         );
         await response.json();
-        let dataUrl = `Name: ${name}; Mobile: ${phone}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${college}; Age: ${age}; `;
+        let dataUrl = `Name: ${name}; Mobile: ${phone}; Gender: ${gender}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${college}; Age: ${age}; platform: ${platform}; Branch: ${branch}; Year: ${year};`;
 
         var imgSrc = await QRCode.toDataURL(dataUrl);
         setFormErrors({});
@@ -148,10 +160,14 @@ const PassGenerator = () => {
       phone: "",
       email: "",
       age: "",
+      gender: "",
       city: "",
       education: "",
       occupation: "",
-      collage: "",
+      college: "",
+      platform: "",
+      branch: "",
+      year: "",
     });
   };
   const notify = (message, type) => {
@@ -161,16 +177,22 @@ const PassGenerator = () => {
   return (
     <>
       {!form && (
-        <div className="container text-center">
-          <button className="btn btn-primary px-4" onClick={newPass}>
+        <div className="container text-center mt-2">
+          <button
+            className="btn btn-success px-5"
+            onClick={() => (newPass, props.formReset())}
+          >
             New Pass
           </button>
         </div>
       )}
       <div className="py-0">
         {form && (
-          <div className="px-5">
-            <h1 className="text-center">Entry Pass Form</h1>
+          <div className="px-5 mt-3">
+            <h2 className="text-center">
+              {props.title[0].toUpperCase() + props.title.slice(1)} Entry Pass
+              Form
+            </h2>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">
@@ -187,7 +209,7 @@ const PassGenerator = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="phone">
-                  Phone:<sup className="text-danger">*</sup>
+                  Whatsapp Number:<sup className="text-danger">*</sup>
                 </label>
                 <input
                   className="form-control"
@@ -232,8 +254,26 @@ const PassGenerator = () => {
                 />
               </div>
               <div className="form-group">
+                <label htmlFor="gender">
+                  Gender:<sup className="text-danger">*</sup>
+                </label>
+                <select
+                  className="form-control"
+                  type="text"
+                  name="gender"
+                  value={gender}
+                  onChange={handlePass}
+                  required
+                >
+                  <option value="">--Select--</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div className="form-group">
                 <label htmlFor="city">
-                  City:<sup className="text-danger">*</sup>
+                  Locality:<sup className="text-danger">*</sup>
                 </label>
                 <input
                   className="form-control"
@@ -244,51 +284,117 @@ const PassGenerator = () => {
                   required
                 />
               </div>
+              {props.title === "working" && (
+                <>
+                  <div className="form-group">
+                    <label htmlFor="education">
+                      Education: <sup className="text-danger">*</sup>
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="education"
+                      value={education}
+                      onChange={handlePass}
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="occupation">
+                      Current Occupation:<sup className="text-danger">*</sup>
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="occupation"
+                      value={occupation}
+                      onChange={handlePass}
+                      required
+                    />
+                  </div>
+                </>
+              )}
+
               <div className="form-group">
-                <label htmlFor="education">
-                  Education: <sup className="text-danger">*</sup>
+                <label htmlFor="college">
+                  {props.title === "working"
+                    ? "Company"
+                    : "College/School/Institute "}
+                  Name:
+                  <sup className="text-danger">*</sup>
                 </label>
                 <input
                   className="form-control"
                   type="text"
-                  name="education"
-                  value={education}
-                  onChange={handlePass}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="occupation">
-                  Current Occupation:<sup className="text-danger">*</sup>
-                </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="occupation"
-                  value={occupation}
-                  onChange={handlePass}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="collage">
-                  Name of Company/Institute:<sup className="text-danger">*</sup>
-                </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="collage"
+                  name="college"
                   value={college}
                   onChange={handlePass}
                   required
                 />
+              </div>
+              {props.title !== "working" && (
+                <>
+                  <div className="form-group">
+                    <label htmlFor="branch">
+                      Branch:
+                      <sup className="text-danger">*</sup>
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="branch"
+                      value={branch}
+                      onChange={handlePass}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="year">
+                      Year:
+                      <sup className="text-danger">*</sup>
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="year"
+                      value={year}
+                      onChange={handlePass}
+                      required
+                    />
+                  </div>
+                </>
+              )}
+              <div className="form-group">
+                <label htmlFor="platform">
+                  From where you get to know about this event:
+                  <sup className="text-danger">*</sup>
+                </label>
+                <select
+                  className="form-control"
+                  type="text"
+                  name="platform"
+                  value={platform}
+                  onChange={handlePass}
+                  required
+                >
+                  <option value="">--Select--</option>
+                  <option value="Friends">Friends</option>
+                  <option value="Volunteers">Volunteers</option>
+                  <option value="Temple">Temple</option>
+                  <option value="College">College</option>
+                  <option value="Rathyatra/Kirtan">Rathyatra / Kirtan</option>
+                  <option value="My Asraya">My Asraya</option>
+                  <option value="Social Media">Social Media</option>
+                  <option value="Others">Others</option>
+                </select>
               </div>
 
               <div className="text-center my-3">
                 <input
                   type="submit"
                   value="Submit"
-                  className="btn btn-primary"
+                  className="btn btn-primary px-5"
                 />
               </div>
             </form>
@@ -311,20 +417,43 @@ const PassGenerator = () => {
                 <b>Age:</b> {age}
               </p>
               <p>
-                <b>Current City:</b> {city}
+                <b>Gender:</b> {gender}
               </p>
               <p>
-                <b>Education:</b> {education}
+                <b>Locality:</b> {city}
               </p>
+              {props.title === "working" && (
+                <>
+                  <p>
+                    <b>Education:</b> {education}
+                  </p>
+                  <p>
+                    <b>Current Occupation:</b> {occupation}
+                  </p>
+                </>
+              )}
               <p>
-                <b>Current Occupation:</b> {occupation}
+                <b>
+                  {props.title === "working"
+                    ? "Company"
+                    : "College/School/Institute "}
+                  Name:{" "}
+                </b>{" "}
+                {college}
               </p>
-              <p>
-                <b>Name of Company/Institute:</b> {college}
-              </p>
+              {props.title !== "working" && (
+                <>
+                  <p>
+                    <b>Branch:</b> {branch}
+                  </p>
+                  <p>
+                    <b>Year:</b> {year}
+                  </p>
+                </>
+              )}
             </div>
             <div className="container text-center">
-              <button className="btn btn-primary" onClick={saveEntryPass}>
+              <button className="btn btn-primary px-5" onClick={saveEntryPass}>
                 Download
               </button>
             </div>
