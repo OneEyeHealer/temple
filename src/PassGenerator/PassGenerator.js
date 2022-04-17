@@ -338,7 +338,7 @@ const PassGenerator = (props) => {
                 <>
                   <div className="form-group">
                     <label htmlFor="branch">
-                      Branch:
+                      Branch/Stream:
                       <sup className="text-danger">*</sup>
                     </label>
                     <input
@@ -352,7 +352,7 @@ const PassGenerator = (props) => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="year">
-                      Year:
+                      Studying Year:
                       <sup className="text-danger">*</sup>
                     </label>
                     <input
