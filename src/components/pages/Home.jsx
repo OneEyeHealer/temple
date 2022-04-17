@@ -19,10 +19,7 @@ const Home = ({ match }) => {
         </div> */}
         <div className="container">
           <div className="row">
-            <div className="col-lg-6 col-sm-12 py-5">
-              <img src={poster} alt="" width="100%" height="auto" />
-            </div>
-            <div className="col-lg-6 col-sm-12 pt-1">
+          <div className="col-lg-6 col-sm-12 pt-1">
               {formType === "" && (
                 <>
                   <div className="container form-title">
@@ -72,6 +69,10 @@ const Home = ({ match }) => {
                 />
               )}
             </div>
+            <div className="col-lg-6 col-sm-12 py-5">
+              <img src={poster} alt="" width="100%" height="auto" />
+            </div>
+            
           </div>
         </div>
         {/* <div className="App">
