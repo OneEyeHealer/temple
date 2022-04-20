@@ -6,9 +6,11 @@ import jsPDF from "jspdf";
 import "./PassGenerator.css";
 import { NameFormat } from "./../utils/Helper";
 import banner from "../img/Prerna_poster_1.jpg";
+import emailjs from "emailjs-com";
 
 const PassGenerator = (props) => {
   var isValid = false;
+  const [base64, setBase64] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [form, setform] = useState(true);
   const [src, setSrc] = useState("");
@@ -55,7 +57,7 @@ const PassGenerator = (props) => {
 
 
   `;
-  const saveEntryPass = () => {
+  const saveEntryPass = async () => {
     // saveAs(src, `${name}.png`);
     doc.setFontSize(20);
     doc.setFont("arial", "bold");
@@ -79,8 +81,11 @@ const PassGenerator = (props) => {
     doc.text(200, 515, `${email}`);
     doc.setFontSize(8);
     doc.text(270, 610, `Date: ${new Date()}`);
-
     doc.save(`${name.split(" ").join("_")}_${new Date().toLocaleString()}`);
+    let pdfUrl =
+      "data:application/pdf;base64," +
+      Buffer.from(doc.output()).toString("base64");
+    setBase64(pdfUrl);
   };
   const handlePass = (e) => {
     const { name, value } = e.target;
@@ -90,40 +95,39 @@ const PassGenerator = (props) => {
     });
     setFormErrors(null);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       isValid = formValidation();
       if (isValid) {
-        const response = await fetch(
-          `https://v1.nocodeapi.com/iyfrohini/google_sheets/YDLzNPLNCIaJTxkR?tabId=${props.title}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify([
-              [
-                name,
-                phone,
-                email,
-                age,
-                gender,
-                city,
-                education,
-                occupation,
-                college,
-                platform,
-                branch,
-                year,
-                new Date().toLocaleString(),
-              ],
-            ]),
-          }
-        );
-        await response.json();
-        let dataUrl = `Name: ${name}; Mobile: ${phone}; Gender: ${gender}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${college}; Age: ${age}; platform: ${platform}; Branch: ${branch}; Year: ${year};`;
+        // const response = await fetch(
+        //   `https://v1.nocodeapi.com/iyfrohini/google_sheets/YDLzNPLNCIaJTxkR?tabId=${props.title}`,
+        //   {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify([
+        //       [
+        //         name,
+        //         phone,
+        //         email,
+        //         age,
+        //         gender,
+        //         city,
+        //         education,
+        //         occupation,
+        //         college,
+        //         platform,
+        //         branch,
+        //         year,
+        //         new Date().toLocaleString(),
+        //       ],
+        //     ]),
+        //   }
+        // );
+        // await response.json();
+        let dataUrl = `Name: ${name}; Mobile: ${phone}; Gender: ${gender}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${college}; Age: ${age}; platform: ${platform}; Branch: ${branch}; Year: ${year}; Email: ${email}`;
 
         var imgSrc = await QRCode.toDataURL(dataUrl);
         setFormErrors({});
@@ -131,10 +135,46 @@ const PassGenerator = (props) => {
         setform(false);
         notify(
           `Thank you for registering for Prerna Youth Fest in ISKCON Rohini. We have mailed your pass to your Email Id or you can Download your Pass from here also.
-          
+
           See you on 8th May,2022`,
           true
         );
+
+        // for sending mail
+        // const mailResponse = await fetch(
+        //   "https://x3leop5kti.execute-api.us-east-1.amazonaws.com/send-email",
+        //   {
+        //     mode: "no-cors",
+        //     method: "POST",
+        //     headers: {
+        //       Accept: "application/json",
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //       senderName: "prernayouthfest@gmail.com",
+        //       senderEmail: "prernayouthfest@gmail.com",
+        //       message: `Hello, ${name}
+        //       Thank You for Registering for Prerna Youth Festival.
+
+        //       When u come for the event Make sure to Download this entry pass which is attached with this Mail
+        //       for your smooth entry.
+
+        //       Thank you
+        //       `,
+        //       base64Data: base64,
+        //       date: new Date(),
+        //       fileName: pdfFileName,
+        //     }),
+        //   }
+        // );
+        // console.log(await mailResponse.json());
+        // emailjs.sendForm(
+        //   "service_d9p378x",
+        //   "template_g9qdrbj",
+        //   e.target,
+        //   "i_MjOVtaujbEz1TAI"
+        // );
+        await saveEntryPass();
       }
     } catch (error) {}
   };
@@ -255,16 +295,13 @@ const PassGenerator = (props) => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="gender">
-                  Gender:<sup className="text-danger">*</sup>
-                </label>
+                <label htmlFor="gender">Gender:</label>
                 <select
                   className="form-control"
                   type="text"
                   name="gender"
                   value={gender}
                   onChange={handlePass}
-                  required
                 >
                   <option value="">--Select--</option>
                   <option value="Male">Male</option>
@@ -285,45 +322,13 @@ const PassGenerator = (props) => {
                   required
                 />
               </div>
-              {props.title === "working" && (
-                <>
-                  <div className="form-group">
-                    <label htmlFor="education">
-                      Education: <sup className="text-danger">*</sup>
-                    </label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      name="education"
-                      value={education}
-                      onChange={handlePass}
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="occupation">
-                      Current Occupation:<sup className="text-danger">*</sup>
-                    </label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      name="occupation"
-                      value={occupation}
-                      onChange={handlePass}
-                      required
-                    />
-                  </div>
-                </>
-              )}
 
               <div className="form-group">
                 <label htmlFor="college">
                   {props.title === "working"
                     ? "Company"
                     : "College/School/Institute "}
-                  Name:
-                  <sup className="text-danger">*</sup>
+                  Name: <sup className="text-danger">*</sup>
                 </label>
                 <input
                   className="form-control"
@@ -331,37 +336,53 @@ const PassGenerator = (props) => {
                   name="college"
                   value={college}
                   onChange={handlePass}
-                  required
                 />
               </div>
+              {props.title === "working" && (
+                <>
+                  <div className="form-group">
+                    <label htmlFor="education">Education:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="education"
+                      value={education}
+                      onChange={handlePass}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="occupation">Current Occupation:</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="occupation"
+                      value={occupation}
+                      onChange={handlePass}
+                    />
+                  </div>
+                </>
+              )}
               {props.title !== "working" && (
                 <>
                   <div className="form-group">
-                    <label htmlFor="branch">
-                      Branch/Stream:
-                      <sup className="text-danger">*</sup>
-                    </label>
+                    <label htmlFor="branch">Branch/Stream:</label>
                     <input
                       className="form-control"
                       type="text"
                       name="branch"
                       value={branch}
                       onChange={handlePass}
-                      required
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="year">
-                      Studying Year:
-                      <sup className="text-danger">*</sup>
-                    </label>
+                    <label htmlFor="year">Studying Year:</label>
                     <input
                       className="form-control"
                       type="text"
                       name="year"
                       value={year}
                       onChange={handlePass}
-                      required
                     />
                   </div>
                 </>
