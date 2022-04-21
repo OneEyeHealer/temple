@@ -100,33 +100,33 @@ const PassGenerator = (props) => {
     try {
       isValid = formValidation();
       if (isValid) {
-        // const response = await fetch(
-        //   `https://v1.nocodeapi.com/iyfrohini/google_sheets/YDLzNPLNCIaJTxkR?tabId=${props.title}`,
-        //   {
-        //     method: "POST",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify([
-        //       [
-        //         name,
-        //         phone,
-        //         email,
-        //         age,
-        //         gender,
-        //         city,
-        //         education,
-        //         occupation,
-        //         college,
-        //         platform,
-        //         branch,
-        //         year,
-        //         new Date().toLocaleString(),
-        //       ],
-        //     ]),
-        //   }
-        // );
-        // await response.json();
+        const response = await fetch(
+          `https://v1.nocodeapi.com/iyfrohini/google_sheets/YDLzNPLNCIaJTxkR?tabId=${props.title}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify([
+              [
+                name,
+                phone,
+                email,
+                age,
+                gender,
+                city,
+                education,
+                occupation,
+                college,
+                platform,
+                branch,
+                year,
+                new Date().toLocaleString(),
+              ],
+            ]),
+          }
+        );
+        await response.json();
         let dataUrl = `Name: ${name}; Mobile: ${phone}; Gender: ${gender}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${college}; Age: ${age}; platform: ${platform}; Branch: ${branch}; Year: ${year}; Email: ${email}`;
 
         var imgSrc = await QRCode.toDataURL(dataUrl);
