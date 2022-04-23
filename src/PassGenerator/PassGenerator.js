@@ -57,7 +57,7 @@ const PassGenerator = (props) => {
 
 
   `;
-  const saveEntryPass = async () => {
+  const saveEntryPass = async (srcImage) => {
     // saveAs(src, `${name}.png`);
     doc.setFontSize(20);
     doc.setFont("arial", "bold");
@@ -69,7 +69,7 @@ const PassGenerator = (props) => {
     doc.setFontSize(20);
     doc.setFont("arial", "bold");
     doc.text("Prerna Youth Fest Entry Pass", 130, 280);
-    doc.addImage(src, "JPEG", 130, 285, 180, 180);
+    doc.addImage(srcImage, "JPEG", 130, 285, 180, 180);
     doc.setFont("arial", "bold");
     doc.setFontSize(15);
     doc.text(150, 475, "Name: ");
@@ -174,7 +174,7 @@ const PassGenerator = (props) => {
         //   e.target,
         //   "i_MjOVtaujbEz1TAI"
         // );
-        await saveEntryPass();
+        await saveEntryPass(imgSrc);
       }
     } catch (error) {}
   };
