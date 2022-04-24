@@ -19,7 +19,7 @@ const Home = ({ match }) => {
         </div> */}
         <div className="container">
           <div className="row">
-          <div className="col-lg-6 col-sm-12 pt-1">
+            <div className="col-lg-6 col-sm-12 pt-1">
               {formType === "" && (
                 <>
                   <div className="container form-title">
@@ -36,7 +36,7 @@ const Home = ({ match }) => {
                       <div className="col text-center">
                         <button
                           className="btn btn-danger px-4 m-auto"
-                          onClick={() => handleFormType("student")}
+                          onClick={() => handleFormType("students")}
                         >
                           Student
                         </button>
@@ -61,7 +61,7 @@ const Home = ({ match }) => {
                   formReset={handleFormReset}
                 />
               )}
-              {formType === "student" && (
+              {formType === "students" && (
                 <PassGenerator
                   student
                   title={formType}
@@ -72,7 +72,6 @@ const Home = ({ match }) => {
             <div className="col-lg-6 col-sm-12 py-5">
               <img src={poster} alt="" width="100%" height="auto" />
             </div>
-            
           </div>
         </div>
         {/* <div className="App">

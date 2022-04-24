@@ -174,6 +174,7 @@ const PassGenerator = (props) => {
         //   e.target,
         //   "i_MjOVtaujbEz1TAI"
         // );
+
         await saveEntryPass(imgSrc);
       }
     } catch (error) {}
