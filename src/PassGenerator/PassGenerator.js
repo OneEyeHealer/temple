@@ -266,8 +266,8 @@ const PassGenerator = (props) => {
                   ? notify(`${formErrors.message}`, false)
                   : null}
               </div>
-              <div className="form-group">
-                <label htmlFor="phone">
+              {/* <div className="form-group">
+                <label htmlFor="email">
                   Email:<sup className="text-danger">*</sup>
                 </label>
                 <input
@@ -279,7 +279,7 @@ const PassGenerator = (props) => {
                   minLength={10}
                   required
                 />
-              </div>
+              </div> */}
               <div className="form-group">
                 <label htmlFor="age">
                   Age:<sup className="text-danger">*</sup>
@@ -295,7 +295,7 @@ const PassGenerator = (props) => {
                   required
                 />
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label htmlFor="gender">Gender:</label>
                 <select
                   className="form-control"
@@ -309,10 +309,10 @@ const PassGenerator = (props) => {
                   <option value="Female">Female</option>
                   <option value="Other">Other</option>
                 </select>
-              </div>
+              </div> */}
               <div className="form-group">
                 <label htmlFor="city">
-                  Locality:<sup className="text-danger">*</sup>
+                  Locality/Address:<sup className="text-danger">*</sup>
                 </label>
                 <input
                   className="form-control"
@@ -337,9 +337,10 @@ const PassGenerator = (props) => {
                   name="college"
                   value={college}
                   onChange={handlePass}
+                  required
                 />
               </div>
-              {props.title === "working" && (
+              {/* {props.title === "working" && (
                 <>
                   <div className="form-group">
                     <label htmlFor="education">Education:</label>
@@ -387,7 +388,7 @@ const PassGenerator = (props) => {
                     />
                   </div>
                 </>
-              )}
+              )} */}
               <div className="form-group">
                 <label htmlFor="platform">
                   From where you get to know about this event:
