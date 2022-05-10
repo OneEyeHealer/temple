@@ -57,36 +57,36 @@ const PassGenerator = (props) => {
 
 
   `;
-  const saveEntryPass = async (srcImage) => {
-    // saveAs(src, `${name}.png`);
-    doc.setFontSize(20);
-    doc.setFont("arial", "bold");
-    doc.text("Welcome to Prerna Youth Fest", 30, 45);
-    doc.setFontSize(13);
-    doc.setFont("arial", "Normal");
-    doc.text(msg, 30, 55);
-    doc.addImage(banner, "JPEG", 300, 35, 130, 180);
-    doc.setFontSize(20);
-    doc.setFont("arial", "bold");
-    doc.text("Prerna Youth Fest Entry Pass", 130, 280);
-    doc.addImage(srcImage, "JPEG", 130, 285, 180, 180);
-    doc.setFont("arial", "bold");
-    doc.setFontSize(15);
-    doc.text(150, 475, "Name: ");
-    doc.text(150, 495, "Phone: ");
-    doc.text(150, 515, "Email: ");
-    doc.setFont("arial", "Normal");
-    doc.text(200, 475, `${name}`);
-    doc.text(200, 495, `${phone}`);
-    doc.text(200, 515, `${email}`);
-    doc.setFontSize(8);
-    doc.text(270, 610, `Date: ${new Date()}`);
-    doc.save(`${name.split(" ").join("_")}_${new Date().toLocaleString()}`);
-    let pdfUrl =
-      "data:application/pdf;base64," +
-      Buffer.from(doc.output()).toString("base64");
-    setBase64(pdfUrl);
-  };
+  // const saveEntryPass = async (srcImage) => {
+  //   // saveAs(src, `${name}.png`);
+  //   doc.setFontSize(20);
+  //   doc.setFont("arial", "bold");
+  //   doc.text("Welcome to Prerna Youth Fest", 30, 45);
+  //   doc.setFontSize(13);
+  //   doc.setFont("arial", "Normal");
+  //   doc.text(msg, 30, 55);
+  //   doc.addImage(banner, "JPEG", 300, 35, 130, 180);
+  //   doc.setFontSize(20);
+  //   doc.setFont("arial", "bold");
+  //   doc.text("Prerna Youth Fest Entry Pass", 130, 280);
+  //   doc.addImage(srcImage, "JPEG", 130, 285, 180, 180);
+  //   doc.setFont("arial", "bold");
+  //   doc.setFontSize(15);
+  //   doc.text(150, 475, "Name: ");
+  //   doc.text(150, 495, "Phone: ");
+  //   doc.text(150, 515, "Email: ");
+  //   doc.setFont("arial", "Normal");
+  //   doc.text(200, 475, `${name}`);
+  //   doc.text(200, 495, `${phone}`);
+  //   doc.text(200, 515, `${email}`);
+  //   doc.setFontSize(8);
+  //   doc.text(270, 610, `Date: ${new Date()}`);
+  //   doc.save(`${name.split(" ").join("_")}_${new Date().toLocaleString()}`);
+  //   let pdfUrl =
+  //     "data:application/pdf;base64," +
+  //     Buffer.from(doc.output()).toString("base64");
+  //   setBase64(pdfUrl);
+  // };
   const handlePass = (e) => {
     const { name, value } = e.target;
     setData({
@@ -129,9 +129,9 @@ const PassGenerator = (props) => {
         await response.json();
         let dataUrl = `Name: ${name}; Mobile: ${phone}; Gender: ${gender}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${college}; Age: ${age}; platform: ${platform}; Branch: ${branch}; Year: ${year}; Email: ${email}`;
 
-        var imgSrc = await QRCode.toDataURL(dataUrl);
+        // var imgSrc = await QRCode.toDataURL(dataUrl);
         setFormErrors({});
-        setSrc(imgSrc);
+        // setSrc(imgSrc);
         setform(false);
         notify(
           `Thank you for registering for Prerna Youth Fest in ISKCON Rohini. We have mailed your pass to your Email Id or you can Download your Pass from here also.
@@ -175,7 +175,7 @@ const PassGenerator = (props) => {
         //   "i_MjOVtaujbEz1TAI"
         // );
 
-        await saveEntryPass(imgSrc);
+        // await saveEntryPass(imgSrc);
       }
     } catch (error) {}
   };
@@ -193,45 +193,45 @@ const PassGenerator = (props) => {
     }
     return isValid;
   };
-  const newPass = () => {
-    setform(true);
-    setData({
-      ...data,
-      name: "",
-      phone: "",
-      email: "",
-      age: "",
-      gender: "",
-      city: "",
-      education: "",
-      occupation: "",
-      college: "",
-      platform: "",
-      branch: "",
-      year: "",
-    });
-  };
+  // const newPass = () => {
+  //   setform(true);
+  //   setData({
+  //     ...data,
+  //     name: "",
+  //     phone: "",
+  //     email: "",
+  //     age: "",
+  //     gender: "",
+  //     city: "",
+  //     education: "",
+  //     occupation: "",
+  //     college: "",
+  //     platform: "",
+  //     branch: "",
+  //     year: "",
+  //   });
+  // };
   const notify = (message, type) => {
     type ? toast.success(`${message}`) : toast.error(`${message}`);
   };
 
   return (
     <>
-      {!form && (
+      {/* {!form && (
         <div className="container text-center mt-2">
           <button
             className="btn btn-success px-5"
-            onClick={() => (newPass, props.formReset())}
+            onClick={() => props.formReset()}
           >
             New Pass
           </button>
         </div>
-      )}
+      )} */}
       <div className="py-0">
         {form && (
           <div className="px-5 mt-3">
             <h2 className="text-center">
-              {props.title[0].toUpperCase() + props.title.slice(1)} Entry Pass
+              {props.title[0].toUpperCase() + props.title.slice(1)}
               Form
             </h2>
             <div className="under-line"></div>
@@ -326,7 +326,7 @@ const PassGenerator = (props) => {
 
               <div className="form-group">
                 <label htmlFor="college">
-                  {props.title === "working"
+                  {props.title === "dysWorking"
                     ? "Company"
                     : "College/School/Institute "}
                   Name: <sup className="text-danger">*</sup>
@@ -340,7 +340,7 @@ const PassGenerator = (props) => {
                   required
                 />
               </div>
-              {/* {props.title === "working" && (
+              {/* {props.title === "dysWorking" && (
                 <>
                   <div className="form-group">
                     <label htmlFor="education">Education:</label>
@@ -365,7 +365,7 @@ const PassGenerator = (props) => {
                   </div>
                 </>
               )}
-              {props.title !== "working" && (
+              {props.title !== "dysWorking" && (
                 <>
                   <div className="form-group">
                     <label htmlFor="branch">Branch/Stream:</label>
@@ -424,7 +424,7 @@ const PassGenerator = (props) => {
             </form>
           </div>
         )}
-        {src && !form && (
+        {/* {src && !form && (
           <div className="col-12">
             <h1 className="text-center">Entry Pass Generated</h1>
             <div className="under-line"></div>
@@ -447,7 +447,7 @@ const PassGenerator = (props) => {
               <p>
                 <b>Locality:</b> {city}
               </p>
-              {props.title === "working" && (
+              {props.title === "dysWorking" && (
                 <>
                   <p>
                     <b>Education:</b> {education}
@@ -459,14 +459,14 @@ const PassGenerator = (props) => {
               )}
               <p>
                 <b>
-                  {props.title === "working"
+                  {props.title === "dysWorking"
                     ? "Company"
                     : "College/School/Institute "}
                   Name:{" "}
                 </b>{" "}
                 {college}
               </p>
-              {props.title !== "working" && (
+              {props.title !== "dysWorking" && (
                 <>
                   <p>
                     <b>Branch:</b> {branch}
@@ -483,7 +483,7 @@ const PassGenerator = (props) => {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );
