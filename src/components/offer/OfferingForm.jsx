@@ -135,7 +135,6 @@ const OfferingForm = ({ match, history }) => {
 
   const doSubmit = async () => {
     // call the server
-    console.log(data);
     await saveOffering(data);
     history.push("/offerings");
     toast("Your Offering submitted successfully");

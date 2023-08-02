@@ -5,8 +5,9 @@ import { toast } from "react-toastify";
 import jsPDF from "jspdf";
 import "./PassGenerator.css";
 import { NameFormat } from "./../utils/Helper";
-import banner from "../img/Prerna_poster_1.jpg";
+import banner from "../img/prerna_september_2023.jpg";
 import emailjs from "emailjs-com";
+import { add } from "lodash";
 
 const PassGenerator = (props) => {
   var isValid = false;
@@ -17,30 +18,56 @@ const PassGenerator = (props) => {
   const [data, setData] = useState({
     name: "",
     phone: "",
-    email: "",
+    // email: "",
     gender: "",
-    city: "",
-    education: "",
-    occupation: "",
+    address: "",
+    // education: "",
+    // occupation: "",
     college: "",
     age: "",
     platform: "",
-    branch: "",
-    year: "",
+    // branch: "",
+    // year: "",
+    type: "",
+    category: "",
+    date: "",
   });
+  const notify = (message, type) => {
+    type
+      ? toast.success(`${message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      : toast.error(`${message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+  };
   const {
     name,
     phone,
-    email,
+    // email,
     gender,
-    city,
-    education,
-    occupation,
+    address,
+    // education,
+    // occupation,
     college,
     age,
     platform,
     branch,
-    year,
+    // year,
   } = data;
   var doc = new jsPDF("portrait", "px", "a4", false);
   let msg = `
@@ -53,40 +80,39 @@ const PassGenerator = (props) => {
 
 
 
-  See you at Prerna Youth Fest On May 8, 2022 !
-
+  See you at Prerna Youth Fest On September 10, 2023 !
 
   `;
-  // const saveEntryPass = async (srcImage) => {
-  //   // saveAs(src, `${name}.png`);
-  //   doc.setFontSize(20);
-  //   doc.setFont("arial", "bold");
-  //   doc.text("Welcome to Prerna Youth Fest", 30, 45);
-  //   doc.setFontSize(13);
-  //   doc.setFont("arial", "Normal");
-  //   doc.text(msg, 30, 55);
-  //   doc.addImage(banner, "JPEG", 300, 35, 130, 180);
-  //   doc.setFontSize(20);
-  //   doc.setFont("arial", "bold");
-  //   doc.text("Prerna Youth Fest Entry Pass", 130, 280);
-  //   doc.addImage(srcImage, "JPEG", 130, 285, 180, 180);
-  //   doc.setFont("arial", "bold");
-  //   doc.setFontSize(15);
-  //   doc.text(150, 475, "Name: ");
-  //   doc.text(150, 495, "Phone: ");
-  //   doc.text(150, 515, "Email: ");
-  //   doc.setFont("arial", "Normal");
-  //   doc.text(200, 475, `${name}`);
-  //   doc.text(200, 495, `${phone}`);
-  //   doc.text(200, 515, `${email}`);
-  //   doc.setFontSize(8);
-  //   doc.text(270, 610, `Date: ${new Date()}`);
-  //   doc.save(`${name.split(" ").join("_")}_${new Date().toLocaleString()}`);
-  //   let pdfUrl =
-  //     "data:application/pdf;base64," +
-  //     Buffer.from(doc.output()).toString("base64");
-  //   setBase64(pdfUrl);
-  // };
+  const saveEntryPass = async (srcImage) => {
+    // saveAs(src, `${name}.png`);
+    doc.setFontSize(20);
+    doc.setFont("arial", "bold");
+    doc.text("Welcome to Prerna Youth Fest", 30, 45);
+    doc.setFontSize(13);
+    doc.setFont("arial", "Normal");
+    doc.text(msg, 30, 55);
+    doc.addImage(banner, "JPEG", 300, 35, 130, 180);
+    doc.setFontSize(20);
+    doc.setFont("arial", "bold");
+    doc.text("Prerna Youth Fest Entry Pass", 130, 280);
+    doc.addImage(srcImage, "JPEG", 130, 285, 180, 180);
+    doc.setFont("arial", "bold");
+    doc.setFontSize(15);
+    doc.text(150, 475, "Name: ");
+    doc.text(150, 495, "Phone: ");
+    doc.text(150, 515, "Type: ");
+    doc.setFont("arial", "Normal");
+    doc.text(200, 475, `${name}`);
+    doc.text(200, 495, `${phone}`);
+    doc.text(200, 515, `${props.title}`);
+    doc.setFontSize(8);
+    doc.text(270, 610, `Date: ${new Date()}`);
+    doc.save(`${name.split(" ").join("_")}_${new Date().toLocaleString()}`);
+    let pdfUrl =
+      "data:application/pdf;base64," +
+      Buffer.from(doc.output()).toString("base64");
+    setBase64(pdfUrl);
+  };
   const handlePass = (e) => {
     const { name, value } = e.target;
     setData({
@@ -101,7 +127,7 @@ const PassGenerator = (props) => {
       isValid = formValidation();
       if (isValid) {
         const response = await fetch(
-          `https://v1.nocodeapi.com/iyfrohini/google_sheets/YDLzNPLNCIaJTxkR?tabId=${props.title}`,
+          `https://v1.nocodeapi.com/oneeyehealer/google_sheets/kSVKofQDbkoeUfUG?tabId=Sheet1`,
           {
             method: "POST",
             headers: {
@@ -111,73 +137,56 @@ const PassGenerator = (props) => {
               [
                 name,
                 phone,
-                email,
                 age,
                 gender,
-                city,
-                education,
-                occupation,
+                address,
                 college,
                 platform,
-                branch,
-                year,
+                props.title,
+                props.pathname.split("/")[2] ?? "giyf",
                 new Date().toLocaleString(),
               ],
             ]),
           }
         );
         await response.json();
-        let dataUrl = `Name: ${name}; Mobile: ${phone}; Gender: ${gender}; Current City: ${city}; Education: ${education}; Current Occupation: ${occupation}; Name of Company/Institute: ${college}; Age: ${age}; platform: ${platform}; Branch: ${branch}; Year: ${year}; Email: ${email}`;
+        let dataUrl = `Name: ${name}; Mobile: ${phone}; Gender: ${gender}; Address: ${address}; Name of Company/Institute: ${college}; Age: ${age}; platform: ${platform};`;
 
-        // var imgSrc = await QRCode.toDataURL(dataUrl);
+        var imgSrc = await QRCode.toDataURL(dataUrl);
         setFormErrors({});
-        // setSrc(imgSrc);
+        setSrc(imgSrc);
         setform(false);
         notify(
-          `Thank you for registering for Prerna Youth Fest in ISKCON Rohini. We have mailed your pass to your Email Id or you can Download your Pass from here also.
+          `Thank you for registering for Prerna Youth Fest in ISKCON Rohini. You can Download your Pass from also.
 
-          See you on 8th May,2022`,
+          See you on September 10, 2023`,
           true
         );
 
-        // for sending mail
-        // const mailResponse = await fetch(
-        //   "https://x3leop5kti.execute-api.us-east-1.amazonaws.com/send-email",
-        //   {
-        //     mode: "no-cors",
-        //     method: "POST",
-        //     headers: {
-        //       Accept: "application/json",
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //       senderName: "prernayouthfest@gmail.com",
-        //       senderEmail: "prernayouthfest@gmail.com",
-        //       message: `Hello, ${name}
-        //       Thank You for Registering for Prerna Youth Festival.
-
-        //       When u come for the event Make sure to Download this entry pass which is attached with this Mail
-        //       for your smooth entry.
-
-        //       Thank you
-        //       `,
-        //       base64Data: base64,
-        //       date: new Date(),
-        //       fileName: pdfFileName,
-        //     }),
-        //   }
-        // );
-        // console.log(await mailResponse.json());
-        // emailjs.sendForm(
-        //   "service_d9p378x",
-        //   "template_g9qdrbj",
-        //   e.target,
-        //   "i_MjOVtaujbEz1TAI"
-        // );
-
-        // await saveEntryPass(imgSrc);
+        await saveEntryPass(imgSrc);
       }
-    } catch (error) {}
+    } catch (error) {
+      notify(`retry again`);
+    }
+  };
+
+  const downloadPass = async () => {
+    try {
+      let dataUrl = `Name: ${name}; Mobile: ${phone}; Gender: ${gender}; Address: ${address};  Name of Company/Institute: ${college}; Age: ${age}; platform: ${platform};`;
+
+      var imgSrc = await QRCode.toDataURL(dataUrl);
+      setFormErrors({});
+      setSrc(imgSrc);
+      setform(false);
+      notify(
+        `Thank you for registering for Prerna Youth Fest in ISKCON Rohini. You can Download your Pass also.
+
+          See you on September 10, 2023`,
+        true
+      );
+
+      await saveEntryPass(imgSrc);
+    } catch {}
   };
 
   const formValidation = () => {
@@ -193,46 +202,42 @@ const PassGenerator = (props) => {
     }
     return isValid;
   };
-  // const newPass = () => {
-  //   setform(true);
-  //   setData({
-  //     ...data,
-  //     name: "",
-  //     phone: "",
-  //     email: "",
-  //     age: "",
-  //     gender: "",
-  //     city: "",
-  //     education: "",
-  //     occupation: "",
-  //     college: "",
-  //     platform: "",
-  //     branch: "",
-  //     year: "",
-  //   });
-  // };
-  const notify = (message, type) => {
-    type ? toast.success(`${message}`) : toast.error(`${message}`);
+  const resetForm = () => {
+    setform(true);
+    setData({
+      ...data,
+      name: "",
+      phone: "",
+      email: "",
+      age: "",
+      gender: "",
+      address: "",
+      education: "",
+      occupation: "",
+      college: "",
+      platform: "",
+      branch: "",
+      year: "",
+    });
   };
 
   return (
     <>
-      {/* {!form && (
-        <div className="container text-center mt-2">
+      {
+        <div className="container text-center text-white mt-2">
           <button
-            className="btn btn-success px-5"
+            className="btn btn-warning px-5"
             onClick={() => props.formReset()}
           >
             New Pass
           </button>
         </div>
-      )} */}
-      <div className="py-0">
+      }
+      <div className="py-0 text-white">
         {form && (
-          <div className="px-5 mt-3">
+          <div className="px-4 mt-3">
             <h2 className="text-center">
-              {props.title[0].toUpperCase() + props.title.slice(1)}
-              Form
+              {props.title[0].toUpperCase() + props.title.slice(1)} Form
             </h2>
             <div className="under-line"></div>
             <form onSubmit={handleSubmit}>
@@ -295,7 +300,7 @@ const PassGenerator = (props) => {
                   required
                 />
               </div>
-              {/* <div className="form-group">
+              <div className="form-group">
                 <label htmlFor="gender">Gender:</label>
                 <select
                   className="form-control"
@@ -303,22 +308,23 @@ const PassGenerator = (props) => {
                   name="gender"
                   value={gender}
                   onChange={handlePass}
+                  defaultValue={{ value: "Male" }}
                 >
-                  <option value="">--Select--</option>
+                  <option value="">--select--</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Other">Other</option>
                 </select>
-              </div> */}
+              </div>
               <div className="form-group">
-                <label htmlFor="city">
+                <label htmlFor="address">
                   Locality/Address:<sup className="text-danger">*</sup>
                 </label>
                 <input
                   className="form-control"
                   type="text"
-                  name="city"
-                  value={city}
+                  name="address"
+                  value={address}
                   onChange={handlePass}
                   required
                 />
@@ -326,7 +332,7 @@ const PassGenerator = (props) => {
 
               <div className="form-group">
                 <label htmlFor="college">
-                  {props.title === "dysWorking"
+                  {props.title === "Working"
                     ? "Company"
                     : "College/School/Institute "}
                   Name: <sup className="text-danger">*</sup>
@@ -414,21 +420,35 @@ const PassGenerator = (props) => {
                 </select>
               </div>
 
-              <div className="text-center my-3">
-                <input
-                  type="submit"
-                  value="Submit"
-                  className="btn btn-primary px-5"
-                />
+              <div className="row">
+                <div className="col-6">
+                  <div className="text-center my-3">
+                    <input
+                      type="submit"
+                      value="Submit"
+                      className="btn btn-primary px-4"
+                    />
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div className="text-center my-3">
+                    <input
+                      type="reset"
+                      value="reset"
+                      onClick={() => resetForm()}
+                      className="btn btn-primary px-4"
+                    />
+                  </div>
+                </div>
               </div>
             </form>
           </div>
         )}
-        {/* {src && !form && (
-          <div className="col-12">
+        {src && !form && (
+          <div className="col-12 choose-form">
             <h1 className="text-center">Entry Pass Generated</h1>
-            <div className="under-line"></div>
-            <div className="container text-center">
+            <div className="under-line "></div>
+            <div className="container text-center pt-4">
               <img src={src} alt="" width="150px" height="150px" />
             </div>
             <div className="container pass-data">
@@ -442,48 +462,25 @@ const PassGenerator = (props) => {
                 <b>Age:</b> {age}
               </p>
               <p>
-                <b>Gender:</b> {gender}
+                <b>Locality:</b> {address}
               </p>
-              <p>
-                <b>Locality:</b> {city}
-              </p>
-              {props.title === "dysWorking" && (
-                <>
-                  <p>
-                    <b>Education:</b> {education}
-                  </p>
-                  <p>
-                    <b>Current Occupation:</b> {occupation}
-                  </p>
-                </>
-              )}
               <p>
                 <b>
-                  {props.title === "dysWorking"
+                  {props.title === "Working"
                     ? "Company"
                     : "College/School/Institute "}
                   Name:{" "}
                 </b>{" "}
                 {college}
               </p>
-              {props.title !== "dysWorking" && (
-                <>
-                  <p>
-                    <b>Branch:</b> {branch}
-                  </p>
-                  <p>
-                    <b>Year:</b> {year}
-                  </p>
-                </>
-              )}
             </div>
             <div className="container text-center">
-              <button className="btn btn-primary px-5" onClick={saveEntryPass}>
+              <button className="btn btn-primary px-5" onClick={downloadPass}>
                 Download
               </button>
             </div>
           </div>
-        )} */}
+        )}
       </div>
     </>
   );

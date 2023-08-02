@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Player from "./media/Player";
 import { DYS, style } from "./pages/pagesData";
 
 const DysSection = ({ key, title, details }) => {
   return (
-    <Fragment>
+    <>
       <section className="container m-3">
         <h1 className="App">
           DYS
@@ -60,7 +60,7 @@ const DysSection = ({ key, title, details }) => {
           );
         })}
       </section>
-    </Fragment>
+    </>
   );
 };
 

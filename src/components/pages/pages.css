@@ -2,12 +2,23 @@
 header {
   min-height: 80vh;
   width: 100%;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
       to right top,
       rgba(255, 161, 127, 0.342),
       rgba(0, 34, 62, 0.432)
     ),
-    url(https://scontent-del1-2.xx.fbcdn.net/v/t31.0-8/s960x960/14615675_1129717797109786_7397748157824969957_o.jpg?_nc_cat=108&ccb=3&_nc_sid=e3f864&_nc_ohc=KkPibDPx_0AAX_2uNSW&_nc_ht=scontent-del1-2.xx&tp=7&oh=d143babc21405bf9bf3b92a27e595ca7&oe=60633C80);
+    url(https://scontent-del1-2.xx.fbcdn.net/v/t31.0-8/s960x960/14615675_1129717797109786_7397748157824969957_o.jpg?_nc_cat=108&ccb=3&_nc_sid=e3f864&_nc_ohc=KkPibDPx_0AAX_2uNSW&_nc_ht=scontent-del1-2.xx&tp=7&oh=d143babc21405bf9bf3b92a27e595ca7&oe=60633C80); */
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgb(171, 141, 211) 20%,
+    rgb(128, 102, 161) 30%,
+    rgb(98, 73, 131) 40%,
+    rgba(63, 40, 94, 1) 60%,
+    rgb(68, 47, 92) 70%,
+    rgba(77, 169, 120, 1) 100%
+  );
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;

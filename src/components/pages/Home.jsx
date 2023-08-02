@@ -10,7 +10,7 @@ import logo from "./../../img/logo.png";
 import PageHeading from "../common/pageHeading";
 import DYS from "./../../DYS/DYS";
 
-const Home = ({ match }) => {
+const Home = ({ match, location }) => {
   const [formType, setFormType] = useState("");
   const handleFormType = (value) => {
     setFormType(value);
@@ -20,34 +20,30 @@ const Home = ({ match }) => {
   };
   return (
     <Fragment>
-      <header className="container-fluid">
+      <header className="container-fluid text-white">
         {/* <div className="container m-0 position-absolute new-offering-position">
           {match.url === "/home" ? <NewOffering /> : undefined}
         </div> */}
         <div className="container">
           <div className="row">
-            <div className="col-lg-6 col-sm-12 pt-1">
+            <div className="container mt-5">
+              <h3 className="text-center">
+                Prerna Youth Fest Registration <br /> 2023
+              </h3>
+              <div className="under-line"></div>
+            </div>
+            <div className="my-auto col-lg-6 col-sm-12 pt-1">
               {formType === "" && (
                 <>
-                  {/* <div className="container form-title">
-                    <h3 className="text-center">
-                      Discover Yourself (DYS) Registration
-                    </h3>
-                    <div className="under-line"></div>
-                  </div> */}
                   <div className="container choose-form">
-                    <h3 className="text-center pb-3">
-                      {/* Are You Student or Working ? */}
+                    <h3 className="text-center text-white pb-3">
+                      Are You Student or Working ?
                     </h3>
-                    <DYS
-                      title="Discover Yourself (DYS) "
-                      formReset={handleFormReset}
-                    />
-                    {/* <div className="row">
+                    <div className="row">
                       <div className="col text-center">
                         <button
-                          className="btn btn-danger px-4 m-auto"
-                          onClick={() => handleFormType("dysStudents")}
+                          className="btn btn-warning px-4 m-auto"
+                          onClick={() => handleFormType("Student")}
                         >
                           Student
                         </button>
@@ -55,14 +51,18 @@ const Home = ({ match }) => {
 
                       <div className="col text-center">
                         <button
-                          className="btn btn-success px-4 m-auto"
-                          onClick={() => handleFormType("dysWorking")}
+                          className="btn btn-warning px-4 m-auto"
+                          onClick={() => handleFormType("Working")}
                         >
                           Working
                         </button>
                       </div>
-                    </div> */}
-                    <div className="row mt-3">
+                    </div>
+                    {/* <DYS
+                      title="Discover Yourself (DYS) "
+                      formReset={handleFormReset}
+                    /> */}
+                    {/* <div className="row mt-3">
                       <div className="col text-center">
                         <p>
                           <b>Note:</b> For this DYS you need to Pay{" "}
@@ -77,29 +77,31 @@ const Home = ({ match }) => {
                           on the same number.
                         </p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </>
               )}
-              {/* {formType === "dysWorking" && (
+              {formType === "Working" && (
                 <PassGenerator
                   working
                   title={formType}
+                  pathname={location.pathname}
                   formReset={handleFormReset}
                 />
               )}
-              {formType === "dysStudents" && (
+              {formType === "Student" && (
                 <PassGenerator
                   student
                   title={formType}
+                  pathname={location.pathname}
                   formReset={handleFormReset}
                 />
-              )} */}
+              )}
             </div>
             <div className="col-lg-6 col-sm-12 py-5">
               <div className="container">
                 <img
-                  src={"/img/iyfdys.png"}
+                  src={"/img/prerna_september_2023.jpg"}
                   alt=""
                   width="100%"
                   height="auto"
@@ -120,7 +122,7 @@ const Home = ({ match }) => {
           {/* <h1 className="text-center mb-4">Gallery</h1> */}
           <CarouselImage />
         </div>
-        <FaqSection />
+        {/* <FaqSection /> */}
       </main>
     </Fragment>
   );
