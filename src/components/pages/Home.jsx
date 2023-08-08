@@ -1,6 +1,7 @@
 import React, { Fragment, useRef, useState } from "react";
 import PassGenerator from "../../PassGenerator/PassGenerator";
 import poster from "../../img/Prerna_poster_1.jpg";
+import qrCodePay from "../../img/qr_code_payment.jpg";
 import CarouselImage from "../../Carousel/CarouselImage";
 import DysSection from "./../DysSection";
 import PageSection from "./../PageSection";
@@ -18,6 +19,7 @@ const Home = ({ match, location }) => {
   const handleFormReset = () => {
     setFormType("");
   };
+  console.log(location.pathname.split("/")[2]);
   return (
     <Fragment>
       <header className="container-fluid text-white">
@@ -32,52 +34,92 @@ const Home = ({ match, location }) => {
               </h3>
               <div className="under-line"></div>
             </div>
+            {/* <div className="container mt-4 text-center">
+              <p>
+                <em>
+                  To upload or submit your receipt{" "}
+                  <a href="https://forms.gle/4MF6aqqk4shBzatb7">click here.</a>
+                </em>
+              </p>
+            </div> */}
             <div className="my-auto col-lg-6 col-sm-12 pt-1">
               {formType === "" && (
                 <>
                   <div className="container choose-form">
                     <h3 className="text-center text-white pb-3">
-                      Are You Student or Working ?
+                      Register for Prerna Fest
                     </h3>
                     <div className="row">
                       <div className="col text-center">
-                        <button
+                        {/* <button
                           className="btn btn-warning px-4 m-auto"
                           onClick={() => handleFormType("Student")}
                         >
                           Student
-                        </button>
+                        </button> */}
+                        <a
+                          href={
+                            location.pathname.split("/")[2] === "viyf"
+                              ? "https://tinyurl.com/PRERNA-REG-2023"
+                              : "https://tinyurl.com/PRERNA-REG-GGP"
+                          }
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <button className="btn btn-warning px-4 m-auto">
+                            Register
+                          </button>
+                        </a>
                       </div>
 
-                      <div className="col text-center">
+                      {/* <div className="col text-center">
                         <button
                           className="btn btn-warning px-4 m-auto"
                           onClick={() => handleFormType("Working")}
                         >
                           Working
                         </button>
-                      </div>
+                        <a
+                          href="https://forms.gle/FUQ9yY1SYqkCs7pJ8"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <button className="btn btn-warning px-4 m-auto">
+                            Working
+                          </button>
+                        </a>
+                      </div> */}
                     </div>
                     {/* <DYS
                       title="Discover Yourself (DYS) "
                       formReset={handleFormReset}
                     /> */}
-                    {/* <div className="row mt-3">
+                    <div className="row mt-3">
                       <div className="col text-center">
                         <p>
-                          <b>Note:</b> For this DYS you need to Pay{" "}
-                          <b>₹100 (commitment charges)</b> on{" "}
-                          <b className="text-primary">8287732634</b> via any
-                          mode{" "}
-                          <b className="text-success">
-                            (upi, phone pay, google pay, paytm)
+                          <b>Note:</b> For this{" "}
+                          <em className=" under-line-small font-weight-bolder">
+                            Prerna Youth Fest
+                          </em>{" "}
+                          you need to Pay{" "}
+                          <b className="text-warning under-line-small">
+                            ₹100 (commitment charges)
                           </b>{" "}
-                          which are completely refundable after you complete
-                          your session and send the screenshort of the payment
-                          on the same number.
+                          on via any mode{" "}
+                          <b className="text-success">
+                            (UPI, Phone Pay, Google Pay,Paytm)
+                          </b>{" "}
+                          Or you can Scan the below QR code to pay and Attach
+                          the{" "}
+                          <span className="under-line-small">
+                            screenshot of the payment
+                          </span>{" "}
+                          in the form as well.
                         </p>
+                        {/* <p>You can also pay by scanning</p>
+                        <img src={qrCodePay} alt="" width="auto" height={450} /> */}
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                 </>
               )}

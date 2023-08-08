@@ -295,8 +295,8 @@ const PassGenerator = (props) => {
                   name="age"
                   value={age}
                   onChange={handlePass}
-                  min={16}
-                  max={30}
+                  min={12}
+                  max={50}
                   required
                 />
               </div>

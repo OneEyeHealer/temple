@@ -10,6 +10,12 @@
   width: 20%;
   margin: 0 auto;
 }
+
+.under-line-small {
+  border-bottom: 2px solid var(--hover-bg);
+  width: 20%;
+  margin: 0 auto;
+}
 @media (min-width: 241px) and (max-width: 500px) {
   .form-title {
     margin: 10% auto;
