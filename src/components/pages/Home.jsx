@@ -61,7 +61,7 @@ const Home = ({ match, location }) => {
                           href={
                             location.pathname.split("/")[2] === "viyf"
                               ? "https://tinyurl.com/PRERNA-REG-2023"
-                              : "https://tinyurl.com/PRERNA-REG-GGP"
+                              : "https://forms.gle/nCZmucLsYMdEgiPr8"
                           }
                           target="_blank"
                           rel="noopener noreferrer"
