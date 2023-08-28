@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useState } from "react";
 import PassGenerator from "../../PassGenerator/PassGenerator";
-import poster from "../../img/Prerna_poster_1.jpg";
+import poster from "../../img/Prerna_2023_v2.png";
 import qrCodePay from "../../img/qr_code_payment.jpg";
 import CarouselImage from "../../Carousel/CarouselImage";
 import DysSection from "./../DysSection";
@@ -142,12 +142,7 @@ const Home = ({ match, location }) => {
             </div>
             <div className="col-lg-6 col-sm-12 py-5">
               <div className="container">
-                <img
-                  src={"/img/prerna_september_2023.jpg"}
-                  alt=""
-                  width="100%"
-                  height="auto"
-                />
+                <img src={poster} alt="" width="100%" height="auto" />
               </div>
             </div>
           </div>
