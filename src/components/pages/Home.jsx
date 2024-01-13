@@ -111,9 +111,9 @@ const Home = ({ match, location }) => {
                           <em className=" under-line-small font-weight-bolder">
                             Prerna Youth Fest
                           </em>{" "}
-                          make sure he is{" "}
+                          make sure he/she is{" "}
                           <span className="under-line-small">
-                            register via about link.
+                            register via about link
                           </span>
                           .
                         </p>
