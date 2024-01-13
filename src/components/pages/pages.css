@@ -11,13 +11,11 @@ header {
   background: rgb(255, 255, 255);
   background: linear-gradient(
     to right bottom,
-    rgba(255, 255, 255, 1) 0%,
-    rgb(171, 141, 211) 20%,
-    rgb(128, 102, 161) 30%,
-    rgb(98, 73, 131) 40%,
-    rgba(63, 40, 94, 1) 60%,
-    rgb(68, 47, 92) 70%,
-    rgba(77, 169, 120, 1) 100%
+    #3b2619 0%,
+    #98876d 20%,
+    #7c2828 40%,
+    #272727 60%,
+    #99686f 100%
   );
   background-position: center center;
   background-size: cover;

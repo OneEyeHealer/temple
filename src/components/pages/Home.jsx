@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useState } from "react";
 import PassGenerator from "../../PassGenerator/PassGenerator";
-import poster from "../../img/Prerna_2023_v2.png";
+import poster from "../../img/Prerna_youth_fest_2024.png";
 import qrCodePay from "../../img/qr_code_payment.jpg";
 import CarouselImage from "../../Carousel/CarouselImage";
 import DysSection from "./../DysSection";
@@ -30,7 +30,7 @@ const Home = ({ match, location }) => {
           <div className="row">
             <div className="container mt-5">
               <h3 className="text-center">
-                Prerna Youth Fest Registration <br /> 2023
+                Prerna Youth Fest Registration <br /> 2024
               </h3>
               <div className="under-line"></div>
             </div>
@@ -97,24 +97,25 @@ const Home = ({ match, location }) => {
                     <div className="row mt-3">
                       <div className="col text-center">
                         <p>
-                          <b>Note:</b> For this{" "}
+                          <b>Note:</b>{" "}
                           <em className=" under-line-small font-weight-bolder">
                             Prerna Youth Fest
                           </em>{" "}
-                          you need to Pay{" "}
-                          <b className="text-warning under-line-small">
-                            ₹100 (commitment charges)
+                          is{" "}
+                          <b className="text-warning">
+                            Free of Cost{" "}
+                            <span className="text-success">(no charges)</span>
                           </b>{" "}
-                          on via any mode{" "}
-                          <b className="text-success">
-                            (UPI, Phone Pay, Google Pay,Paytm)
-                          </b>{" "}
-                          Or you can Scan the below QR code to pay and Attach
-                          the{" "}
+                          and if are bringing your{" "}
+                          <b className="text-warning">Friends </b> in the{" "}
+                          <em className=" under-line-small font-weight-bolder">
+                            Prerna Youth Fest
+                          </em>{" "}
+                          make sure he is{" "}
                           <span className="under-line-small">
-                            screenshot of the payment
-                          </span>{" "}
-                          in the form as well.
+                            register via about link.
+                          </span>
+                          .
                         </p>
                         {/* <p>You can also pay by scanning</p>
                         <img src={qrCodePay} alt="" width="auto" height={450} /> */}
