@@ -58,11 +58,7 @@ const Home = ({ match, location }) => {
                           Student
                         </button> */}
                         <a
-                          href={
-                            location.pathname.split("/")[2] === "viyf"
-                              ? "https://tinyurl.com/PRERNA-REG-2023"
-                              : "https://forms.gle/nCZmucLsYMdEgiPr8"
-                          }
+                          href={"https://forms.gle/JtPUT9SyfTEsK1NS7"}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
